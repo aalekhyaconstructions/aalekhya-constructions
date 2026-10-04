@@ -25,7 +25,7 @@ export default function ContactPage() {
           </FadeIn>
           <FadeIn delay={0.1}>
             <h1 className="mx-auto mt-5 max-w-3xl font-heading text-4xl font-semibold leading-tight text-white md:text-6xl">
-              Let's Build Something <span className="text-gradient-gold">Extraordinary</span>
+              Let&apos;s Build Something <span className="text-gradient-gold">Extraordinary</span>
             </h1>
           </FadeIn>
           <FadeIn delay={0.2}>
@@ -95,7 +95,7 @@ export default function ContactPage() {
                 <span className="font-body text-xs uppercase tracking-[0.35em] text-gold">Get In Touch</span>
                 <h2 className="mt-4 font-heading text-3xl font-semibold text-white">Reach Our Team Directly</h2>
                 <p className="mt-3 text-base leading-relaxed text-grey">
-                  Whether you have a detailed brief or just an early idea, we're here to help. Use any of the channels below — we respond within 24 hours.
+                  Whether you have a detailed brief or just an early idea, we&apos;re here to help. Use any of the channels below — we respond within 24 hours.
                 </p>
                 <div className="mt-8 space-y-4">
                   <a href={MAILTO_URL} className="flex items-center gap-4 rounded-2xl border border-white/10 bg-ink/40 p-4 transition-all hover:border-gold/30">

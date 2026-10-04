@@ -59,7 +59,7 @@ export default function ConsultationPage() {
           </FadeIn>
           <FadeIn delay={0.2}>
             <p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-white/80 md:text-lg">
-              No obligation, just expert guidance. Tell us about your vision and we'll help you plan the path forward.
+              No obligation, just expert guidance. Tell us about your vision and we&apos;ll help you plan the path forward.
             </p>
           </FadeIn>
         </div>

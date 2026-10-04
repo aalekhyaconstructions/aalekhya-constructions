@@ -1,18 +1,20 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, MapPin, IndianRupee, Tag } from 'lucide-react';
-import { PROJECTS } from '@/lib/data';
+import { type CMSProject } from '@/lib/project-types';
 import { SectionHeading, FadeIn, CTAButton } from '@/components/Section';
 
-export default function FeaturedProjects() {
+export default function FeaturedProjects({ projects }: { projects: CMSProject[] }) {
   const [index, setIndex] = useState(0);
   const trackRef = useRef<HTMLDivElement>(null);
 
-  const featured = PROJECTS.slice(0, 5);
+  const featured = projects.length > 0 ? projects : [];
   const next = () => setIndex((i) => (i + 1) % featured.length);
   const prev = () => setIndex((i) => (i - 1 + featured.length) % featured.length);
+
+  if (featured.length === 0) return null;
 
   return (
     <section className="section-pad relative overflow-hidden">
@@ -21,7 +23,7 @@ export default function FeaturedProjects() {
           <SectionHeading
             center={false}
             eyebrow="Featured Work"
-            title={<>Landmarks We've <span className="text-gradient-gold">Delivered</span></>}
+            title={<>Landmarks We&apos;ve <span className="text-gradient-gold">Delivered</span></>}
             subtitle="A selection of our signature projects across residential, commercial and landscape categories."
           />
           <div className="hidden gap-3 md:flex">
@@ -43,18 +45,18 @@ export default function FeaturedProjects() {
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
           {featured.map((project) => (
-            <div key={project.id} className="w-full shrink-0 px-4 md:px-8">
+            <div key={project.slug} className="w-full shrink-0 px-4 md:px-8">
               <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-2 lg:items-center">
                 <FadeIn>
                   <div className="group relative aspect-[4/3] overflow-hidden rounded-3xl border border-white/10">
                     <img
-                      src={project.image}
+                      src={project.coverImage}
                       alt={project.title}
                       className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent" />
                     <span className="absolute left-5 top-5 rounded-full bg-ink/70 px-4 py-1.5 text-xs font-medium text-gold backdrop-blur-sm">
-                      {project.category}
+                      {project.projectType}
                     </span>
                   </div>
                 </FadeIn>
@@ -62,25 +64,25 @@ export default function FeaturedProjects() {
                 <FadeIn delay={0.15}>
                   <div>
                     <h3 className="font-heading text-3xl font-semibold text-white md:text-4xl">{project.title}</h3>
-                    <p className="mt-4 text-base leading-relaxed text-grey">{project.description}</p>
+                    <p className="mt-4 text-base leading-relaxed text-grey">{project.shortDescription}</p>
                     <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
                       <div className="rounded-xl border border-white/10 bg-charcoal/60 p-4">
                         <span className="flex items-center gap-2 text-xs uppercase tracking-wider text-gold">
                           <MapPin className="h-3.5 w-3.5" /> Location
                         </span>
-                        <p className="mt-2 text-sm font-medium text-white">{project.location}</p>
+                        <p className="mt-2 text-sm font-medium text-white">{project.location}{project.state ? `, ${project.state}` : ''}</p>
                       </div>
                       <div className="rounded-xl border border-white/10 bg-charcoal/60 p-4">
                         <span className="flex items-center gap-2 text-xs uppercase tracking-wider text-gold">
                           <IndianRupee className="h-3.5 w-3.5" /> Value
                         </span>
-                        <p className="mt-2 text-sm font-medium text-white">{project.value}</p>
+                        <p className="mt-2 text-sm font-medium text-white">{project.budget}</p>
                       </div>
                       <div className="rounded-xl border border-white/10 bg-charcoal/60 p-4">
                         <span className="flex items-center gap-2 text-xs uppercase tracking-wider text-gold">
                           <Tag className="h-3.5 w-3.5" /> Category
                         </span>
-                        <p className="mt-2 text-sm font-medium text-white">{project.category}</p>
+                        <p className="mt-2 text-sm font-medium text-white">{project.projectType}</p>
                       </div>
                     </div>
                     <div className="mt-8">
@@ -104,9 +106,9 @@ export default function FeaturedProjects() {
       </div>
 
       <div className="container-lux mt-8 flex justify-center gap-2">
-        {featured.map((_, i) => (
+        {featured.map((p, i) => (
           <button
-            key={i}
+            key={p.slug}
             onClick={() => setIndex(i)}
             aria-label={`Go to project ${i + 1}`}
             className={`h-1.5 rounded-full transition-all ${i === index ? 'w-8 bg-gold' : 'w-2 bg-white/20'}`}

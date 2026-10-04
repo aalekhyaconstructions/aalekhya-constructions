@@ -1,0 +1,65 @@
+backend:
+  name: github
+  repo: aalekhyaconstructions/aalekhya-constructions
+  branch: main
+  auth_type: oauth
+  app_id: ""
+
+media_folder: "public/images/projects"
+public_folder: "/images/projects"
+
+collections:
+  - name: "projects"
+    label: "Projects"
+    label_singular: "Project"
+    folder: "content/projects"
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    summary: "{{title}} — {{projectType}} — {{status}}"
+    sortable_fields: ['title', 'completionYear', 'status']
+    fields:
+      - { name: "title", label: "Project Title", widget: "string", hint: "The display name of the project" }
+      - { name: "slug", label: "Slug", widget: "string", hint: "URL-friendly identifier, e.g. residential-gogamukh" }
+      - name: "projectType"
+        label: "Project Type"
+        widget: "select"
+        options:
+          - "Residential"
+          - "Commercial"
+          - "Landscaping"
+          - "Resorts"
+          - "Parks"
+        default: "Residential"
+        hint: "Category used for filtering on the Projects page"
+      - { name: "location", label: "Location", widget: "string", hint: "City or area name" }
+      - { name: "state", label: "State", widget: "string", hint: "State name" }
+      - { name: "budget", label: "Project Value / Budget", widget: "string", hint: "e.g. ₹1.2 Crore" }
+      - name: "status"
+        label: "Project Status"
+        widget: "select"
+        options:
+          - "Completed"
+          - "Ongoing"
+          - "Planned"
+          - "Archived"
+        default: "Completed"
+        hint: "Current status of the project"
+      - { name: "featured", label: "Featured on Home Page", widget: "boolean", default: false, hint: "Check to show this project in the home page carousel" }
+      - { name: "completionYear", label: "Completion Year", widget: "string", hint: "Year of completion or expected completion, e.g. 2024" }
+      - { name: "coverImage", label: "Cover Image", widget: "image", hint: "Main image shown on project cards and detail view" }
+      - name: "galleryImages"
+        label: "Gallery Images"
+        widget: "list"
+        field: { name: "image", label: "Image", widget: "image" }
+        required: false
+        hint: "Additional project photos for the gallery"
+      - name: "keyFeatures"
+        label: "Key Features"
+        widget: "list"
+        required: false
+        hint: "Bullet-point highlights of the project"
+      - { name: "shortDescription", label: "Short Description", widget: "string", hint: "One-line summary shown on cards" }
+      - { name: "body", label: "Full Description", widget: "markdown", hint: "Detailed project description" }

@@ -9,8 +9,11 @@ import ResortShowcase from '@/components/home/ResortShowcase';
 import { InquiryCTA } from '@/components/Section';
 import BeforeAfter from '@/components/BeforeAfter';
 import { FadeIn, SectionHeading } from '@/components/Section';
+import { getFeaturedProjects } from '@/lib/projects';
 
 export default function HomePage() {
+  const featuredProjects = getFeaturedProjects();
+
   return (
     <>
       <Hero />
@@ -38,7 +41,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <FeaturedProjects />
+      <FeaturedProjects projects={featuredProjects} />
       <Process />
       <Stats />
       <InquiryCTA />
